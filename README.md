@@ -35,4 +35,4 @@ First, the config file is loaded and stashed on the app instance as
 Then, each module listed in [main]->modules is imported, and its `setup`
 coroutine is invoked, passed the `app` instance.
 
-Each module can gather its config from the app['config'] ConigParser instance.
+Each module can gather its config from the `app['config']` ConigParser instance.
