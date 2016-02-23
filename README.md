@@ -32,6 +32,6 @@ A veneer over aiohttp to make life less tedious
 First, the config file is loaded and stashed on the app instance as
 `app['config']`.
 
-It then iterates through each item in `[ablaze]', imports the module specified,
-and invokes ``setup`` in it, passing the ``Application`` instance and its
-config dict.
+It then iterates through each item in `[ablaze]`, imports the module specified,
+and invokes ``setup`` coroutine in it, passing the ``Application`` instance and
+its config dict.
