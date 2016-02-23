@@ -6,25 +6,25 @@ A veneer over aiohttp to make life less tedious
 
 1. Create a config.ini
    ```
-   [main]
-   modules=models,templates,myapp.stuff
+   # A list of config section -> module mappings
+   [ablaze]
+   templates=ablaze.templates
+   models=ablaze.models
+   app=myapp
 
    [templates]
    paths=templates/
 
    [models]
    apps=myapp.auth,myapp.page
+
+   [app]
    ```
 
-2. Create an app
+2. Launch it
 
-   ```python
-   import os
-   import ablaze
-
-   BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-   ablaze.launch(os.path.join(BASE_DIR, 'config.ini'))
+   ```
+   $ python -m ablaze config.ini
    ```
 
 # How it works
@@ -32,7 +32,6 @@ A veneer over aiohttp to make life less tedious
 First, the config file is loaded and stashed on the app instance as
 `app['config']`.
 
-Then, each module listed in [main]->modules is imported, and its `setup`
-coroutine is invoked, passed the `app` instance.
-
-Each module can gather its config from the `app['config']` ConigParser instance.
+It then iterates through each item in `[ablaze]', imports the module specified,
+and invokes ``setup`` in it, passing the ``Application`` instance and its
+config dict.
