@@ -1,10 +1,10 @@
 import os
+from importlib import import_module
 from urllib import parse
 
 from aiopg.sa import create_engine
 
 # TODO:
-# Import and register all models
 # Provide lazy connections
 # Close lazy connections
 # Provide access to models via app
@@ -16,8 +16,15 @@ async def cleanup(app):
 
 
 async def setup(app):
+    config = app['config']['models']
+
     app['db'] = await create_engine(**get_db_options())
     app.on_shutdown.append(cleanup)
+
+    modules = [x.strip() for x in config['models']]
+    for module in modules:
+        pkg = import_module(module)
+        # Register pkg models into convenience container
 
 
 def get_db_options():
