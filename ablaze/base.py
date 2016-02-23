@@ -16,5 +16,7 @@ async def build_app(loop, config_path):
         if '.' in module:
             pkg = import_module(module)
         else:
-            pkg = import_module(module, 'ablaze')
+            pkg = import_module('.' + module, 'ablaze')
         await pkg.setup(app)
+
+    return app
