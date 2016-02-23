@@ -1,0 +1,5 @@
+SQLAlchemy==1.0.12
+aiohttp==0.21.2
+aiohttp-session==0.5.0
+chardet==2.3.0
+knights-templater==1.3
