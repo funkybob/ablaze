@@ -6,6 +6,7 @@ from aiohttp import web
 
 
 async def build_app(loop, config_path, defaults=None):
+    config_path = os.path.abspath(config_path)
     if defaults is None:
         defaults = {}
     defaults.setdefault('CONFIG_DIR', os.path.dirname(config_path))
