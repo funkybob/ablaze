@@ -1,11 +1,15 @@
 import configparser
+import os
 from importlib import import_module
 
 from aiohttp import web
 
 
-async def build_app(loop, config_path):
-    config = configparser.ConfigParser()
+async def build_app(loop, config_path, defaults=None):
+    if defaults is None:
+        defaults = {}
+    defaults.setdefault('CONFIG_DIR', os.path.dirname(config_path))
+    config = configparser.ConfigParser(defaults=defaults)
     config.read(config_path)
 
     app = web.Application(loop=loop)
