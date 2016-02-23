@@ -7,13 +7,13 @@ A veneer over aiohttp to make life less tedious
 1. Create a config.ini
    ```
    [main]
-   modules=models,templates
+   modules=models,templates,myapp.stuff
 
    [templates]
    paths=templates/
 
    [models]
-   apps=auth,page
+   apps=myapp.auth,myapp.page
    ```
 
 2. Create an app
