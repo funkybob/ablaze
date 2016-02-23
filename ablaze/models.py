@@ -2,7 +2,8 @@ import os
 from importlib import import_module
 from urllib import parse
 
-from aiopg.sa import create_engine, MetaData, Table
+from aiopg.sa import create_engine
+from sqlalchemy import MetaData, Table
 
 # TODO:
 # Provide lazy connections
@@ -43,7 +44,7 @@ async def setup(app):
     app.on_shutdown.append(cleanup)
 
     models = {}
-    modules = [x.strip() for x in config['models']]
+    modules = [x.strip() for x in config['models'].split(',')]
     for module in modules:
         pkg = import_module(module)
         # Register pkg models into convenience container
