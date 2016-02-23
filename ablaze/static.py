@@ -7,6 +7,5 @@ path = static/
 
 '''
 
-async def setup(app):
-    config = app['config']['static']
+async def setup(app, config):
     app.router.add_static(config['url'], config['path'])

@@ -16,12 +16,10 @@ async def build_app(loop, config_path, defaults=None):
     app = web.Application(loop=loop)
     app['config'] = config
 
-    modules = [x.strip() for x in config['main']['modules'].split(',')]
-    for module in modules:
-        if '.' in module:
-            pkg = import_module(module)
-        else:
-            pkg = import_module('.' + module, 'ablaze')
-        await pkg.setup(app)
+    modules = config['ablaze']
+    for key, module in modules.items():
+        cfg = config[key]
+        pkg = import_module(module, 'ablaze')
+        await pkg.setup(app, cfg)
 
     return app

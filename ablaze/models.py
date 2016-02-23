@@ -37,9 +37,7 @@ class ModelsProxy(dict):
                 setattr(self, key, obj)
 
 
-async def setup(app):
-    config = app['config']['models']
-
+async def setup(app, config):
     app['db'] = await create_engine(**get_db_options())
     app.on_shutdown.append(cleanup)
 
