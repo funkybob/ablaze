@@ -9,5 +9,5 @@ async def setup(app, config):
 
 
 def render(request, template, context={}):
-    tmpl = request.app['templates'][template]
-    return web.Response(text=tmpl(context), content_type='text/html')
+    template = request.app['templates'][template_name]
+    return web.Response(text=template(context), content_type='text/html')
