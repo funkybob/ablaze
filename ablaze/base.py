@@ -4,7 +4,7 @@ from importlib import import_module
 
 from aiohttp import web
 
-from .config import EnvironInterpolator
+from .config import EnvironInterpolation
 
 import logging
 log = logging.getLogger(__name__)
@@ -15,7 +15,7 @@ async def build_app(loop, config_path, defaults=None):
     if defaults is None:
         defaults = {}
     # defaults.setdefault('CONFIG_DIR', os.path.dirname(config_path))
-    config = configparser.ConfigParser(interpolator=EnvironInterpolator(), defaults=defaults)
+    config = configparser.ConfigParser(interpolation=EnvironInterpolation(), defaults=defaults)
     config.read(config_path)
 
     app = web.Application(loop=loop)
