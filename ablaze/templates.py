@@ -8,6 +8,19 @@ async def setup(app, config):
     app['templates'] = TemplateLoader(paths)
 
 
-def render(request, template, context={}):
+def render(request, template_name, context={}):
     template = request.app['templates'][template_name]
     return web.Response(text=template(context), content_type='text/html')
+
+
+async def stream(request, template_name, context={}):
+    resp = web.StreamResponse()
+    resp.headers[web.hdrs.CONTENT_TYPE] = 'text/html'
+    await resp.prepare(request)
+
+    template = request.app['templates'][template_name]
+    for chunk in template._iterator(context):
+        resp.write(chunk)
+        await resp.drain()
+
+    return resp
